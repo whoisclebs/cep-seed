@@ -1,0 +1,20 @@
+services:
+  seed:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cep-seed:latest
+    container_name: cep-seed
+    profiles:
+      - manual
+    volumes:
+      - cep-data:/data:rw
+    environment:
+      - CEP_DB_PATH=/data/cep.db
+      - CEP_EDNE_URL=https://www2.correios.com.br/sistemas/edne/download/eDNE_Basico.zip
+      - CEP_DOWNLOAD_TIMEOUT=5m
+
+volumes:
+  cep-data:
+    name: cep-data
+    external: true
